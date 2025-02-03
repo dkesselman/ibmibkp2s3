@@ -19,7 +19,34 @@ The script tries to be modular for better code understanding, but I am not using
 * You can send an email when job starts and ends. I like to send the backup log, and upload the backup output to the cloud.
 * Backups are organized with a PREFIX+YYMMDD format folder. Most object storage solutions allow to expire or move to cheaper storage your old backups, based on rules and policies.
 
+## Pre-Reqs
+
+* You need to set the Open Source tools up in your IBM i. I suggest to use Access Client Solutions
+* You need an S3-compatible bucket. You can read about IBM Cloud Object Storage setup in this link: https://www.ibm.com/products/cloud-object-storage
+* Install the following packages:
+ - zstd
+ - python3 or newer
+ - python3-pip
+ - bash
+* Using pip3 install the AWS CLI
+ - pip3 install awscli
+* Setup the AWS CLI with your credentials
+ - aws configure
+* Create a VTAP01 *VRT tape device
+
+## Setup constants
+
+You need to set the constants to fit your needs and adapt to your environment settings.
+**CONSTANTS:**
+* s3cmd: This controls the way you call the "AWS CLI". For IBM Cloud Object Storage (or any vendor other than AWS) you need to set the "--endpoint-url" parameter
+* IMGCLG : This is the name of your Virtual Tape Image Catalog, that must exist.
+* TAPEPREFIX: The prefix to identify your cartridges
+* TapeQty: The amount of tapes to create
+* IMGSIZ: Tape cartridge size in MB
+* num_procs: number of parallel processes
+
 ## What's next
+
 **There is a lot of improvement to be done:**
 * Needs an automatic restore script, based on command line or parameter file
 * Needs a maintenance script to purge old backups (similar to ICC+BRMS)
